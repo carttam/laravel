@@ -9,6 +9,7 @@
     <link type="text/css" href="css/compo/bootstrap-reboot.rtl.min.css">
     <link rel="stylesheet" href="css/compo/bootstrap-icons.css">
     <link rel="stylesheet" href="css/compo/bootstrap.rtl.min.css">
+    @yield('include_css')
 </head>
 <body>
 
@@ -16,5 +17,6 @@
 
 <script src="js/compo/jquery-3.6.0.min.js"></script>
 <script src="js/compo/bootstrap.bundle.min.js"></script>
+@yield('include_js')
 </body>
 </html>
