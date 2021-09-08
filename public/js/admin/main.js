@@ -1,10 +1,10 @@
 // Themes
-
 const switch_button = document.querySelector('#switch');
 const nav_bar = document.querySelector('#top_nav');
 const nav_links = document.querySelectorAll('.nav .nav-link');
 const body = document.querySelector('#body');
 const tab_panes = document.querySelectorAll('.tab-pane');
+const tables = document.querySelectorAll('.table');
 
 function darkTheme() {
     nav_bar.classList.remove('bg-primary');
@@ -16,6 +16,12 @@ function darkTheme() {
     for (const tabPanesKey in tab_panes) {
         if (typeof tab_panes[tabPanesKey] === 'object')
             tab_panes[tabPanesKey].classList.add('text-light');
+    }
+    for (const tablesKey in tables) {
+        if (typeof tables[tablesKey] === 'object'){
+            tables[tablesKey].classList.add('table-dark');
+            tables[tablesKey].classList.remove('table-info');
+        }
     }
     body.classList.add('dark-bg')
 }
@@ -30,6 +36,12 @@ function lightTheme() {
     for (const tabPanesKey in tab_panes) {
         if (typeof tab_panes[tabPanesKey] === 'object')
             tab_panes[tabPanesKey].classList.remove('text-light');
+    }
+    for (const tablesKey in tables) {
+        if (typeof tables[tablesKey] === 'object'){
+            tables[tablesKey].classList.add('table-info');
+            tables[tablesKey].classList.remove('table-dark');
+        }
     }
     body.classList.remove('dark-bg')
 }

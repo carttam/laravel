@@ -16,7 +16,10 @@ class CreateRoleTable extends Migration
         Schema::create('role', function (Blueprint $table) {
             $table->id();
             $table->string('type')->index();
+            $table->unsignedTinyInteger('level')->unique();
         });
+        \Illuminate\Support\Facades\DB::table('role')->insert(['type' => 'کاربر عادی', 'level' => '0']);
+        \Illuminate\Support\Facades\DB::table('role')->insert(['type' => 'مدیر ارشد', 'level' => '255']);
     }
 
     /**
