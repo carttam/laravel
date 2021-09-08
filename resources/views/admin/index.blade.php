@@ -14,5 +14,15 @@
 {{--Body--}}
 
 @section('body')
+    <!--NavBar-->
+    @include('admin._partials.top_navbar')
 
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row w-100">
+            <!--Body-->
+            @include('admin._partials.body')
+            <!--SideBar-->
+            @include('admin._partials.side_bar')
+        </div>
+    </div>
 @endsection

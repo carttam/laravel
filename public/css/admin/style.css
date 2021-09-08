@@ -1,0 +1,61 @@
+.tab-pane h3{
+    border-bottom: 1px solid #939191;
+}
+
+/*Switch Button*/
+input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.switch-label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 60px;
+    height: 30px;
+    background: #fff;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+    top: -11px;
+}
+
+.switch-label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    background: #0d6efd;
+    border-radius: 90px;
+    transition: 0.4s;
+}
+
+input:checked + .switch-label:after {
+    background: #0b0c10;
+}
+
+input:checked + .switch-label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.switch-label:active:after {
+    width: 40px;
+}
+
+/*Theme Dark*/
+.nav-link-dark.active{
+    background-color: #45a29e !important;
+}
+.nav-link-dark{
+    color: #fff;
+}
+.dark-bg{
+    background-color: #1f2833;
+}
+.bg-dark{
+    background-color: #0b0c10 !important;
+}

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/compo/bootstrap.rtl.min.css">
     @yield('include_css')
 </head>
-<body>
+<body id="body">
 
 @yield('body')
 
