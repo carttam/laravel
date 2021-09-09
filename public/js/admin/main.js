@@ -50,16 +50,37 @@ function lightTheme() {
 switch_button.onclick = function () {
     if (this.checked) { // Dark Theme
         darkTheme();
+        document.cookie = 'theme=dark';
     } else { // Light Theme
         lightTheme();
+        document.cookie = 'theme=';
     }
 };
 
+// Cookie
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 // After Load Change Theme
 $(document).ready(function () {
-    if (switch_button.checked) { // Dark Theme
-        darkTheme();
-    } else { // Light Theme
-        lightTheme();
+    if (getCookie('theme') === 'dark') {
+        if (!switch_button.checked)
+            switch_button.click();
+            else
+                darkTheme();
     }
 });

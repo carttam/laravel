@@ -13,6 +13,7 @@ class UserModel extends Model
     protected $table = 'user';
     protected $guarded = [
         'id',
+        'status',
     ];
 
     /**
@@ -22,4 +23,5 @@ class UserModel extends Model
     {
         return $this->hasOne(RoleModel::class,'id','role_id');
     }
+
 }

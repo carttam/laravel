@@ -13,5 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('admin')->group(function (){
-   Route::get('/',[\App\Http\Controllers\AdminController::class,'index']);
+    /*Get Request*/
+   Route::get('/',[\App\Http\Controllers\AdminController::class,'index'])->name('admin');
+   /*Post Request*/
+    Route::post('addUser',[\App\Http\Controllers\AdminController::class,'insertUser'])->name('addUser');
 });

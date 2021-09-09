@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->text('description');
-            $table->boolean('status');
+            $table->boolean('status')->default('0');
             $table->timestamps();
         });
     }
