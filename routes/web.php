@@ -17,4 +17,5 @@ Route::prefix('admin')->group(function (){
    Route::get('/',[\App\Http\Controllers\AdminController::class,'index'])->name('admin');
    /*Post Request*/
     Route::post('addUser',[\App\Http\Controllers\AdminController::class,'insertUser'])->name('addUser');
+    Route::post('addRole',[\App\Http\Controllers\AdminController::class,'insertRole'])->name('addRole');
 });

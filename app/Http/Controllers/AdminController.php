@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RoleRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\RoleModel;
 use App\Models\UserModel;
@@ -28,6 +29,22 @@ class AdminController extends Controller
         $usr = UserModel::create($request->all());
         if ($usr instanceof UserModel) {
             $msg = 'کاربر ' . $usr->full_name . ' با موفقیت اضافه شد .' ;
+            $status = 'success';
+        }
+        else {
+            $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
+            $status = 'failed';
+        }
+        return redirect()->route('admin')->with($status,$msg);
+    }
+
+    public function insertRole(RoleRequest $request)
+    {
+        $msg = '';
+        $status = '';
+        $role = RoleModel::create($request->all());
+        if ($role instanceof RoleModel) {
+            $msg = 'نقش ' . $role->type . ' با موفقیت اضافه شد .' ;
             $status = 'success';
         }
         else {

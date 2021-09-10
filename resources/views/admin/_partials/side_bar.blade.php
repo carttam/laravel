@@ -8,7 +8,7 @@
                 class="d-md-none d-lg-inline">افزودن کاربر</span>
             <i class="bi bi-person-plus"></i> </button>
         <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span
-                class="d-md-none d-lg-inline">تب شماره چند</span>
-            <i class="bi bi-cash-stack"></i></button>
+                class="d-md-none d-lg-inline">افزودن نقش</span>
+            <i class="bi bi-person-check"></i> </button>
     </div>
 </div>
