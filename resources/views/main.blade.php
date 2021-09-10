@@ -18,7 +18,7 @@
 
 <script src="js/compo/jquery-3.6.0.min.js"></script>
 <script src="js/compo/bootstrap.bundle.min.js"></script>
-<script src="js/compo/common.js"></script>
+<script src="js/common.js"></script>
 @yield('include_js')
 </body>
 </html>

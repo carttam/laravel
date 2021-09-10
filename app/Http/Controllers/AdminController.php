@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Http\Requests\RoleRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\PostModel;
 use App\Models\RoleModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
@@ -26,31 +28,47 @@ class AdminController extends Controller
     {
         $msg = '';
         $status = '';
-        $usr = UserModel::create($request->all());
-        if ($usr instanceof UserModel) {
-            $msg = 'کاربر ' . $usr->full_name . ' با موفقیت اضافه شد .' ;
+        try {
+            $usr = RoleModel::create($request->all());
+            $msg = 'پست ' . $usr->full_name . ' با موفقیت اضافه شد .' ;
             $status = 'success';
-        }
-        else {
+        }catch (\Exception $ex){
             $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
             $status = 'failed';
+        } finally {
+            return redirect()->route('admin')->with($status,$msg);
         }
-        return redirect()->route('admin')->with($status,$msg);
     }
 
     public function insertRole(RoleRequest $request)
     {
         $msg = '';
         $status = '';
-        $role = RoleModel::create($request->all());
-        if ($role instanceof RoleModel) {
-            $msg = 'نقش ' . $role->type . ' با موفقیت اضافه شد .' ;
+        try {
+            $role = RoleModel::create($request->all());
+            $msg = 'پست ' . $role->type . ' با موفقیت اضافه شد .' ;
             $status = 'success';
-        }
-        else {
+        }catch (\Exception $ex){
             $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
             $status = 'failed';
+        } finally {
+            return redirect()->route('admin')->with($status,$msg);
         }
-        return redirect()->route('admin')->with($status,$msg);
+    }
+
+    public function insertPost(PostRequest $request)
+    {
+        $msg = '';
+        $status = '';
+        try {
+            $post = PostModel::create($request->all());
+            $msg = 'پست ' . $post->title . ' با موفقیت اضافه شد .' ;
+            $status = 'success';
+        }catch (Exception $ex){
+            $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
+            $status = 'failed';
+        } finally {
+            return redirect()->route('admin')->with($status,$msg);
+        }
     }
 }

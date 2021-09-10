@@ -18,4 +18,5 @@ Route::prefix('admin')->group(function (){
    /*Post Request*/
     Route::post('addUser',[\App\Http\Controllers\AdminController::class,'insertUser'])->name('addUser');
     Route::post('addRole',[\App\Http\Controllers\AdminController::class,'insertRole'])->name('addRole');
+    Route::post('addPost',[\App\Http\Controllers\AdminController::class,'insertPost'])->name('addPost');
 });

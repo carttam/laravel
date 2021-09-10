@@ -20,7 +20,7 @@ class CreateUserTable extends Migration
             $table->string('phone_number','10')->unique();
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->boolean('status')->default('0');
             $table->timestamps();
         });
