@@ -75,12 +75,42 @@ function getCookie(cname) {
     return "";
 }
 
-// After Load Change Theme
+// Next & Prev PAges...
+function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+}
+
+// After Load Change Theme & Prev AND Next Page fix
+const next = document.getElementById('nextP');
+const prev = document.getElementById('prevP');
+const urlParam = getUrlParameter('ft');
+
 $(document).ready(function () {
+    //Theme
     if (getCookie('theme') === 'dark') {
         if (!switch_button.checked)
             switch_button.click();
             else
                 darkTheme();
     }
+    //Next&Prev
+    if (urlParam){
+        next.href = '?ft=' + (parseInt(urlParam) + 50);
+        if (parseInt(urlParam) >= 50)
+        prev.href = '?ft=' + (parseInt(urlParam) - 50);
+    }
 });
+
+

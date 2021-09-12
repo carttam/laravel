@@ -7,8 +7,11 @@
         <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#add_user" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span
                 class="d-md-none d-lg-inline">افزودن کاربر</span>
             <i class="bi bi-person-plus"></i> </button>
-        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span
+        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#add_role" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span
                 class="d-md-none d-lg-inline">افزودن نقش</span>
+            <i class="bi bi-person-check"></i> </button>
+        <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#posts" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><span
+                class="d-md-none d-lg-inline">پست ها</span>
             <i class="bi bi-person-check"></i> </button>
     </div>
 </div>

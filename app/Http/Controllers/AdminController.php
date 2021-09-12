@@ -10,6 +10,7 @@ use App\Models\RoleModel;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class AdminController extends Controller
@@ -61,8 +62,12 @@ class AdminController extends Controller
         $msg = '';
         $status = '';
         try {
-            $post = PostModel::create($request->all());
-            $msg = 'پست ' . $post->title . ' با موفقیت اضافه شد .' ;
+            $post = new PostModel();
+            $file_name = Str::random(16).$request->file->getClientOriginalExtension();
+            $post->descrioption = $request->get('description');
+            $post->file_type = $request->file->getMimeType();
+            $post->file_name = $file_name;
+            $msg = 'پست با موفقیت اضافه شد.';
             $status = 'success';
         }catch (Exception $ex){
             $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
