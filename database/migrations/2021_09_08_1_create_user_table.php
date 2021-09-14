@@ -16,9 +16,11 @@ class CreateUserTable extends Migration
         Schema::create('user', function (Blueprint $table) {
             $table->id();
             $table->string('full_name','80')->index();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->index();
+            $table->string('password')->index();
+            $table->string('secret_key','65')->unique()->index();
             $table->string('phone_number','10')->unique();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->index();
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->boolean('status')->default('0');

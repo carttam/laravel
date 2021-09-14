@@ -53,6 +53,7 @@ if (isset($_GET['ft']))
                         <tr>
                             <th scope="col">شماره تماس</th>
                             <th scope="col">نقش</th>
+                            <th scope="col">پسورد</th>
                             <th scope="col">ایمیل</th>
                             <th scope="col">نام و نام خانوادگی</th>
                             <th scope="col">#</th>
@@ -67,6 +68,7 @@ if (isset($_GET['ft']))
                             <tr>
                                 <td>+98-{{ $user->phone_number }}</td>
                                 <td>{{ $user->role->type }}</td>
+                                <td>{{ $user->password }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->full_name }}</td>
                                 <td>{{ $counter }}</td>
