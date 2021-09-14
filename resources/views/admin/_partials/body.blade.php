@@ -80,8 +80,8 @@ if (isset($_GET['ft']))
                 @endif
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
-                        <li class="page-item"><a id="prevP" class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a id="nextP" class="page-link" href="?ft=50">Next</a></li>
+                        <li class="page-item"><a id="prevP" class="page-link rounded-0 rounded-end" href="#">Previous</a></li>
+                        <li class="page-item"><a id="nextP" class="page-link rounded-0 rounded-start" href="?ft=50">Next</a></li>
                     </ul>
                 </nav>
             </div>

@@ -5,6 +5,8 @@ const nav_links = document.querySelectorAll('.nav .nav-link');
 const body = document.querySelector('#body');
 const tab_panes = document.querySelectorAll('.tab-pane');
 const tables = document.querySelectorAll('.table');
+const next = document.getElementById('nextP');
+const prev = document.getElementById('prevP');
 
 function darkTheme() {
     nav_bar.classList.remove('bg-primary');
@@ -23,7 +25,9 @@ function darkTheme() {
             tables[tablesKey].classList.remove('table-info');
         }
     }
-    body.classList.add('dark-bg')
+    body.classList.add('dark-bg');
+    next.classList.add('dark-bg');
+    prev.classList.add('dark-bg');
 }
 
 function lightTheme() {
@@ -43,7 +47,9 @@ function lightTheme() {
             tables[tablesKey].classList.remove('table-dark');
         }
     }
-    body.classList.remove('dark-bg')
+    body.classList.remove('dark-bg');
+    next.classList.remove('dark-bg');
+    prev.classList.remove('dark-bg');
 }
 
 // Switch Button Change Theme
@@ -93,8 +99,6 @@ function getUrlParameter(sParam) {
 }
 
 // After Load Change Theme & Prev AND Next Page fix
-const next = document.getElementById('nextP');
-const prev = document.getElementById('prevP');
 const urlParam = getUrlParameter('ft');
 
 $(document).ready(function () {
