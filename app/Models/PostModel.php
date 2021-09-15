@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class PostModel extends Model
 {
@@ -15,8 +17,23 @@ class PostModel extends Model
         'id',
     ];
 
-    public function comments(): \Illuminate\Database\Query\Builder
+    public function user()
     {
-        return DB::table('comment_'.$this->id);
+        return $this->hasOne(UserModel::class,'id','user_id');
+    }
+
+    public function comments()
+    {
+//        return DB::table('comment_'.$this->id)->get();
+        return (new CommentModel())->setTable('comment_'.$this->id)->get();
+    }
+
+    public function create_comment_table(){
+        Schema::create('comment_'.$this->id, function (Blueprint $table) {
+            $table->id();
+            $table->text('comment');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+        });
     }
 }

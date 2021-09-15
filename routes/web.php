@@ -21,3 +21,9 @@ Route::prefix('admin')->group(function (){
     Route::post('addRole',[\App\Http\Controllers\AdminController::class,'insertRole'])->name('addRole');
     Route::post('addPost',[\App\Http\Controllers\AdminController::class,'insertPost'])->name('addPost');
 });
+
+Route::prefix('home')->group(function (){
+    /*Get Request*/
+    Route::get('/',[\App\Http\Controllers\HomeController::class,'index'])->name('home');
+    /*Post Request*/
+});

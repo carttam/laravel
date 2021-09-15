@@ -84,6 +84,8 @@ class AdminController extends Controller
                     'user_id'=>$user->id,
                 ]);
 
+                $post->create_comment_table();
+
                 $request->file('file')->storeAs($file_path,$file_name);
                 $msg = 'پست با موفقیت اضافه شد.';
                 $status = 'success';

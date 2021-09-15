@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa" @yield('sp_site')>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
