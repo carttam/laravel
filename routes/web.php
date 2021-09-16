@@ -25,5 +25,6 @@ Route::prefix('admin')->group(function (){
 Route::prefix('home')->group(function (){
     /*Get Request*/
     Route::get('/',[\App\Http\Controllers\HomeController::class,'index'])->name('home');
+    Route::get('/getComments/{post_id}',[\App\Http\Controllers\HomeController::class,'getComments'])->name('getComments');
     /*Post Request*/
 });

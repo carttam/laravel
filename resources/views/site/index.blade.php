@@ -39,7 +39,7 @@
                             <p class="card-text">{{$post->description}}</p>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="card-link" data-bs-toggle="modal" data-bs-target="#staticBackdrop">نظرات</a>
+                            <a href="#" class="card-link comments" data-id="{{$post->id}}">نظرات</a>
                         </div>
                     </div>
                 </div>
@@ -48,25 +48,23 @@
         </div>
     </div>
     {{--Modal--}}
-    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">نظرات</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    {{--TODO : complete this part to see comments--}}
-                    @foreach($posts[0]->comments() as $comment)
+                <div class="modal-body" id="modal-content">
+
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted">{{$comment->user->full_name}}</h6>
-                                    <p class="card-text">{{$comment->comment}}</p>
+                                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                                    <p class="card-text"></p>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
 
                 </div>
                 <div class="modal-footer">

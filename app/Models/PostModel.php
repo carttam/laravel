@@ -24,7 +24,6 @@ class PostModel extends Model
 
     public function comments()
     {
-//        return DB::table('comment_'.$this->id)->get();
         return (new CommentModel())->setTable('comment_'.$this->id)->get();
     }
 
