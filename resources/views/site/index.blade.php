@@ -39,7 +39,7 @@
                             <p class="card-text">{{$post->description}}</p>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="card-link comments" data-id="{{$post->id}}">نظرات</a>
+                            <a class="card-link comments" data-id="{{$post->id}}">نظرات</a>
                         </div>
                     </div>
                 </div>

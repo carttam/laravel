@@ -17,9 +17,8 @@ Route::prefix('admin')->group(function (){
    Route::get('/',[\App\Http\Controllers\AdminController::class,'index'])->name('admin');
    Route::get('/test',[\App\Http\Controllers\AdminController::class,'test'])->name('test');
    /*Post Request*/
-    Route::post('addUser',[\App\Http\Controllers\AdminController::class,'insertUser'])->name('addUser');
-    Route::post('addRole',[\App\Http\Controllers\AdminController::class,'insertRole'])->name('addRole');
-    Route::post('addPost',[\App\Http\Controllers\AdminController::class,'insertPost'])->name('addPost');
+    Route::post('/addUser',[\App\Http\Controllers\AdminController::class,'insertUser'])->name('addUser');
+    Route::post('/addRole',[\App\Http\Controllers\AdminController::class,'insertRole'])->name('addRole');
 });
 
 Route::prefix('home')->group(function (){
@@ -27,4 +26,9 @@ Route::prefix('home')->group(function (){
     Route::get('/',[\App\Http\Controllers\HomeController::class,'index'])->name('home');
     Route::get('/getComments/{post_id}',[\App\Http\Controllers\HomeController::class,'getComments'])->name('getComments');
     /*Post Request*/
+    Route::post('/addPost',[\App\Http\Controllers\HomeController::class,'insertPost'])->name('addPost');
 });
+Route::get('/login',[\App\Http\Controllers\LoginController::class,'login'])->name('login');
+Route::post('/login',[\App\Http\Controllers\LoginController::class,'logI'])->name('login');
+Route::get('/signup',[\App\Http\Controllers\LoginController::class,'signup'])->name('signup');
+Route::post('/signup',[\App\Http\Controllers\LoginController::class,'signU'])->name('signup');

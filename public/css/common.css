@@ -6,3 +6,6 @@
 input, textarea{
     direction: rtl !important;
 }
+a:hover{
+    cursor: pointer;
+}
