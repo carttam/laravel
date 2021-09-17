@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'email' => 'required|email',
             'phone_number' => 'required|min:10|max:10',
             'role_id' => 'required',
+            'password' => 'required|min:8|max:16',
         ];
     }
 }

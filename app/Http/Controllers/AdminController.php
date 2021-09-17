@@ -19,7 +19,7 @@ class AdminController extends Controller
 {
     public function test()
     {
-        return response((Storage::exists('upload/1/IPvWRQOtaHpJ1RTp.jpg')));
+        dd(UserModel::where('secret_key','09P06UZGO3C6K7ZY')->get()->count() > 0);
     }
 
     public function index() : View
@@ -37,10 +37,15 @@ class AdminController extends Controller
         $msg = '';
         $status = '';
         try {
-            $usr = RoleModel::create($request->all());
-            $msg = 'پست ' . $usr->full_name . ' با موفقیت اضافه شد .' ;
+            $usr = UserModel::create($request->all());
+            do{
+                $secret_key = Str::random('16');
+            }while(UserModel::where('secret_key',$secret_key)->get()->count() > 0);
+            $usr->secret_key = $secret_key;
+            $usr->save();
+            $msg = 'کاربر ' . $usr->full_name . ' با موفقیت اضافه شد .' ;
             $status = 'success';
-        }catch (\Exception $ex){
+        }catch (QueryException $ex){
             $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
             $status = 'failed';
         } finally {
@@ -54,7 +59,7 @@ class AdminController extends Controller
         $status = '';
         try {
             $role = RoleModel::create($request->all());
-            $msg = 'پست ' . $role->type . ' با موفقیت اضافه شد .' ;
+            $msg = 'نقش ' . $role->type . ' با موفقیت اضافه شد .' ;
             $status = 'success';
         }catch (\Exception $ex){
             $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
