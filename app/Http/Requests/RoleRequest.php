@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RoleRequest extends FormRequest
@@ -13,7 +14,10 @@ class RoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $login = LoginController::checkLogin();
+        if ($login)
+            return (bool)LoginController::check_user_has_super_permission($login->role->level);
+        return false;
     }
 
     /**

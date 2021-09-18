@@ -14,6 +14,10 @@
     <script src="js/site/main.js"></script>
 @endsection
 
+<?php
+$login = \App\Http\Controllers\LoginController::checkLogin();
+?>
+
 @section('body')
 
     <!--Navbar-->
@@ -22,8 +26,14 @@
             <img src="ico.png" width="64" height="64" alt="top_icon">
         </a>
         <div class="d-inline-block me-2">
-            <button type="button" class="btn btn-outline-warning">ورود</button>
-            <button type="button" class="btn btn-outline-warning">ثبت نام</button>
+            {{--Check Login Part--}}
+            @if($login)
+                <p class="text-warning">{{$login->full_name}}</p>
+            @else
+                <a class="btn btn-outline-warning" href="{{route('login')}}">ورود</a>
+                <a class="btn btn-outline-warning" href="{{route('signup')}}">ثبت نام</a>
+            @endif
+
         </div>
     </nav>
     <!--Body-->
@@ -57,14 +67,14 @@
                 </div>
                 <div class="modal-body" id="modal-content">
 
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                    <p class="card-text"></p>
-                                </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-muted"></h6>
+                                <p class="card-text"></p>
                             </div>
                         </div>
+                    </div>
 
                 </div>
                 <div class="modal-footer">

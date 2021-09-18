@@ -9,7 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Eloquent;
 
+/**
+ * @mixin Eloquent
+ * */
 class UserModel extends Model
 {
     use HasFactory;

@@ -22,9 +22,14 @@ class AdminController extends Controller
 
     }
 
-    public function index(): View
+    public function index()
     {
-        return view('admin.index', ['users' => UserModel::all(), 'roles' => RoleModel::all()->sortByDesc('level')]);
+        $login = LoginController::checkLogin();
+        if ($login)
+            if (LoginController::check_user_has_super_permission($login->role->level))
+                return view('admin.index', ['users' => UserModel::all(), 'roles' => RoleModel::all()->sortByDesc('level')]);
+
+        return response('<h1>You Do not Have Permission !</h1>', 403);
     }
 
     /*

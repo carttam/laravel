@@ -16,12 +16,37 @@ class LoginController extends Controller
     {
         return view('login.index');
     }
+
     public function signup()
     {
         return view('login.signup');
     }
 
-    public function logI(LoginRequest $request){
+    public static function checkLogin()
+    {
+        $email= session('email');
+        $password= session('password');
+        if ($email && $password) {
+            $usr = UserModel::where('email','=',$email)->where('password','=',$password)->first();
+            if ($usr instanceof UserModel)
+                return $usr;
+        }
+        return false;
+    }
+
+    public static function check_user_has_super_permission($lvl = 0): bool
+    {
+        if ($lvl > 199)
+            return true;
+        else
+            return false;
+    }
+
+    public function logI(LoginRequest $request)
+    {
+        session(['email' => $request->input('mail'),
+            'password' => $request->input('pw')
+        ]);
         return redirect()->route('home');
     }
 
@@ -29,20 +54,20 @@ class LoginController extends Controller
     {
         try {
             $usr = UserModel::create([
-                'full_name'=>$request->input('name'),
-                'phone_number'=>$request->input('pn'),
-                'password'=>$request->input('pw'),
-                'email'=>$request->input('mail'),
-                'role_id'=>'1',
+                'full_name' => $request->input('name'),
+                'phone_number' => $request->input('pn'),
+                'password' => $request->input('pw'),
+                'email' => $request->input('mail'),
+                'role_id' => '1',
             ]);
-            do{
+            do {
                 $secret_key = Str::random('16');
-            }while(UserModel::where('secret_key',$secret_key)->get()->count() > 0);
+            } while (UserModel::where('secret_key', $secret_key)->get()->count() > 0);
             $usr->secret_key = $secret_key;
             $usr->save();
             return redirect()->route('login');
-        }catch (Exception $ex){
-         return redirect()->route('signup');
+        } catch (Exception $ex) {
+            return redirect()->route('signup');
         }
     }
 }

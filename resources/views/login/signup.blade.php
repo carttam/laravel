@@ -32,6 +32,7 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
+            @include('_partials.errors')
             <form class="login100-form validate-form" method="post" action="{{route('signup')}}">
                 @csrf
 					<span class="login100-form-logo">

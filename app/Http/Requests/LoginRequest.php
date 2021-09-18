@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\UserModel;
 use Illuminate\Foundation\Http\FormRequest;
 
 class LoginRequest extends FormRequest
@@ -16,6 +17,7 @@ class LoginRequest extends FormRequest
         return true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,8 +26,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'mail'=>'required|email',
-            'pw'=>'required|min:8|max:16',
+            'mail' => 'required|email',
+            'pw' => 'required|min:8|max:16',
         ];
     }
 }
