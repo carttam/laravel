@@ -50,17 +50,17 @@
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter username">
                     <input class="input100" type="text" name="mail" placeholder="ایمیل">
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    <span class="focus-input100" data-placeholder="&#xf34d;"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate = "Enter username">
                     <input class="input100" type="text" name="pn" placeholder="تلفن تماس">
-                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                    <span class="focus-input100" data-placeholder="&#xf2be;"></span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Enter password">
                     <input class="input100" type="password" name="pw" placeholder="پسورد">
-                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                    <span class="focus-input100" data-placeholder="*"></span>
                 </div>
 
                 <div class="container-login100-form-btn">
