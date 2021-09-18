@@ -19,7 +19,7 @@ class AdminController extends Controller
 {
     public function test()
     {
-        dd(UserModel::where('secret_key', '09P06UZGO3C6K7ZY')->get()->count() > 0);
+
     }
 
     public function index(): View

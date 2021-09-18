@@ -15,7 +15,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        dd(session('email').'---'.session('password'));
         return view('site.index', ['posts' => PostModel::all()]);
     }
 
