@@ -1,5 +1,9 @@
 @extends('main')
 
+@section('title')
+    پنل ادمین
+@endsection
+
 {{--Includes--}}
 
     {{--Css--}}

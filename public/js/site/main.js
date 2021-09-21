@@ -31,6 +31,13 @@ $(document.getElementsByClassName('comments')).each(function () {
                 }
             }
         });
-        $('#staticBackdrop').modal('show');
+        $('#commentsM').modal('show');
+    };
+});
+/*Add Comment*/
+$(document.getElementsByClassName('add-comment')).each(function () {
+    this.onclick = function (){
+        document.getElementById('addCM-id').value = this.attributes['data-id'].value;
+        $('#addCM').modal('show');
     };
 });

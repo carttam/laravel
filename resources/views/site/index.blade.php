@@ -1,5 +1,8 @@
 @extends('main')
 
+@section('title')
+    خانه
+@endsection
 {{--Includes--}}
 @section('sp_site')
     dir="rtl"
@@ -22,34 +25,59 @@ $login = \App\Http\Controllers\LoginController::checkLogin();
 
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between">
-        <a class="navbar-brand ms-2" href="#">
-            <img src="ico.png" width="64" height="64" alt="top_icon">
-        </a>
-        <div class="d-inline-block me-2">
-            {{--Check Login Part--}}
-            @if($login)
-                <p class="text-warning">{{$login->full_name}}</p>
-            @else
-                <a class="btn btn-outline-warning" href="{{route('login')}}">ورود</a>
-                <a class="btn btn-outline-warning" href="{{route('signup')}}">ثبت نام</a>
-            @endif
-
+        <div class="container-fluid">
+            <a class="navbar-brand ms-2" href="#">
+                <img src="ico.png" width="64" height="64" alt="top_icon">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {{--Check Login Part--}}
+                    @if($login) {{--Lged In--}}
+                    <li class="nav-item me-3 text-warning mt-1">
+                        {{$login->full_name}}
+                    </li>
+                    <li class="nav-item me-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#postM"> <i class="bi bi-plus"></i> افزودن پست </a>
+                    </li>
+                    <li class="nav-item me-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-danger" href="{{route('clearSession')}}"> <i class="bi bi-plus"></i> خروج </a>
+                    </li>
+                    @else {{--Must SignUp--}}
+                    <li class="nav-item me-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-warning" href="{{route('login')}}">ورود</a>
+                    </li>
+                    <li class="nav-item me-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-warning" href="{{route('signup')}}">ثبت نام</a>
+                    </li>
+                    @endif
+                </ul>
+            </div>
         </div>
     </nav>
+    {{--Errors--}}
+    @include('_partials.custom_errors')
+
+    @include('_partials.errors')
     <!--Body-->
-    <div class="container mt-5">
+    <div class="container-fluid d-flex justify-content-center mt-5">
         <div class="row justify-content-center">
 
             @foreach($posts as $post)
-                <div class="col-8 border d-flex justify-content-center mt-5">
+                <div class="col-12 col-lg-10 border d-flex justify-content-center mt-5">
                     <div class="card">
-                        <img class="card-img-top" src="../storage/app/upload/{{$post->user->secret_key.'/'.$post->file_name}}" alt="Card image cap">
+                        <img class="card-img-top" src="../storage/app/public/upload/{{$post->user->secret_key.'/'.$post->file_name}}" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">{{$post->user->full_name}}</h5>
                             <p class="card-text">{{$post->description}}</p>
                         </div>
                         <div class="card-body">
                             <a class="card-link comments" data-id="{{$post->id}}">نظرات</a>
+                            @if($login)
+                                <a class="card-link add-comment" data-id="{{$post->id}}">نظر بده</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -57,33 +85,10 @@ $login = \App\Http\Controllers\LoginController::checkLogin();
 
         </div>
     </div>
-    {{--Modal--}}
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">نظرات</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="modal-content">
-
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                <p class="card-text"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">بستن</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
+    {{--Modal_Comments--}}
+    @include('site._partials.comments_modal')
+    {{--Modal_AddPost--}}
+    @include('site._partials.add_post_modal')
+    {{--Modal_AddComment--}}
+    @include('site._partials.add_comment_modal')
 @endsection

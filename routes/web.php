@@ -24,9 +24,11 @@ Route::prefix('admin')->group(function (){
 Route::prefix('home')->group(function (){
     /*Get Request*/
     Route::get('/',[\App\Http\Controllers\HomeController::class,'index'])->name('home');
+    Route::get('/ClearSession',[\App\Http\Controllers\HomeController::class,'clearSession'])->name('clearSession');
     Route::get('/getComments/{post_id}',[\App\Http\Controllers\HomeController::class,'getComments'])->name('getComments');
     /*Post Request*/
     Route::post('/addPost',[\App\Http\Controllers\HomeController::class,'insertPost'])->name('addPost');
+    Route::post('/addComment',[\App\Http\Controllers\HomeController::class,'insertComment'])->name('addComment');
 });
 Route::get('/login',[\App\Http\Controllers\LoginController::class,'login'])->name('login');
 Route::post('/login',[\App\Http\Controllers\LoginController::class,'logI'])->name('login');

@@ -5,7 +5,11 @@ namespace App\Models;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
+/**
+ * @mixin Eloquent
+ * */
 class RoleModel extends Model
 {
     use HasFactory;

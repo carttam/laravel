@@ -19,7 +19,6 @@ class AdminController extends Controller
 {
     public function test()
     {
-
     }
 
     public function index()

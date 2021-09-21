@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,8 @@ class PostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+
+        return ;
     }
 
     /**
@@ -24,7 +25,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            "file"=>"required|mimes:jpeg,jpg,png",
+            'comment'=>'required'
         ];
     }
 }

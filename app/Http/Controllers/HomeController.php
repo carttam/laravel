@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostRequest;
+use App\Models\CommentModel;
 use App\Models\PostModel;
 use App\Models\UserModel;
 use Illuminate\Database\QueryException;
@@ -18,16 +20,23 @@ class HomeController extends Controller
         return view('site.index', ['posts' => PostModel::all()]);
     }
 
+    public function clearSession()
+    {
+        session()->forget('email');
+        session()->forget('password');
+        return redirect()->route('home');
+    }
+
     public function getComments($post_id)
     {
         $result = array();
         $comments = PostModel::find($post_id);
         if ($comments instanceof PostModel) {
 
-            foreach ($comments->comments() as $comment){
-                $result[] = ['id'=>$comment->id,
-                    'comment'=>$comment->comment,
-                    'user_full_name'=>$comment->user->full_name];
+            foreach ($comments->comments() as $comment) {
+                $result[] = ['id' => $comment->id,
+                    'comment' => $comment->comment,
+                    'user_full_name' => $comment->user->full_name];
             }
 
             return response(json_encode($result, JSON_UNESCAPED_UNICODE), 200);
@@ -38,7 +47,7 @@ class HomeController extends Controller
     {
         $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید.';
         $status = 'failed';
-        $user = UserModel::all()->where('email', '=', 'Willett6@nowhere.com')->where('password', '=', '4pbz65w/udEgEhwwXU/O/Q==')->first(); // TODO : must set dynamic username
+        $user = LoginController::checkLogin();
         if ($user instanceof UserModel) {
 
             try {
@@ -55,16 +64,38 @@ class HomeController extends Controller
                 ]);
 
                 $post->create_comment_table();
-
-                $request->file('file')->storeAs($file_path, $file_name);
+                Storage::disk('public')->putFileAs($file_path, $request->file('file'), $file_name);
                 $msg = 'پست با موفقیت اضافه شد.';
                 $status = 'success';
             } catch (QueryException $ex) {
                 // Do Nothing ...
+            } catch (\Exception $ex) {
+                // Do Nothing
             } finally {
-                return redirect()->route('admin')->with($status, $msg);
+                return redirect()->route('home')->with($status, $msg);
             }
 
+        }
+    }
+
+    public function insertComment(CommentRequest $request)
+    {
+        $status = 'failed';
+        $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
+        try {
+            $cm = (new CommentModel())->setTable('comment_' . $request->input('id'));
+            $usr = LoginController::checkLogin();
+            if ($usr instanceof UserModel) {
+                $cm->user_id = $usr->id;
+                $cm->comment = $request->input('comment');
+                $cm->save();
+                $status = 'success';
+                $msg = 'نظر شما با موفقیت ثبت شد .';
+            }
+        } catch (QueryException $ex) {
+
+        } finally {
+            return redirect()->route('home')->with($status, $msg);
         }
     }
 }
