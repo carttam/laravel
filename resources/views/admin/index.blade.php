@@ -13,6 +13,7 @@
 
     {{--JavaScript--}}
 @section('include_js')
+<script src="js/compo/sweetalert.min.js"></script>
 <script src="js/admin/main.js"></script>
 @endsection
 {{--Body--}}

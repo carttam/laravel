@@ -13,8 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function authorize()
     {
-
-        return ;
+        return true;
     }
 
     /**

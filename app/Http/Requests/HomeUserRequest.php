@@ -25,7 +25,7 @@ class HomeUserRequest extends FormRequest
     {
         return [
             'mail'=>'required|email',
-            'pn'=>'required|min:10|max:10',
+            'pn'=>'required|min:10|max:10|unique:user,phone_number',
             'pw'=>'required|min:8|max:16',
             'name'=>'required|min:3|max:80',
         ];

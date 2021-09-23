@@ -30,7 +30,7 @@ class UserRequest extends FormRequest
         return [
             'full_name' => 'required|min:3|max:80',
             'email' => 'required|email',
-            'phone_number' => 'required|min:10|max:10',
+            'phone_number' => 'required|min:10|max:10|unique:user,phone_number',
             'role_id' => 'required',
             'password' => 'required|min:8|max:16',
         ];

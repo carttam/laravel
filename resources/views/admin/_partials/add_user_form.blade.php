@@ -25,5 +25,5 @@
         @endforeach
     </select>
     <label for="validationServer01" class="form-label">نقش</label>
-    <input class="btn btn-outline-success mt-1 mt-lg-0" type="submit" value="افزودن">
+    <input class="btn btn-outline-success mt-1 mt-lg-0" type="submit" value="انجام بده">
 </div>

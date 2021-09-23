@@ -117,4 +117,41 @@ $(document).ready(function () {
     }
 });
 
+// Edit User Modal
 
+$(document.getElementsByClassName('edit-user')).each(function() {
+    this.onclick = function (){
+        $.ajax({
+            url: "http://localhost/lara/public/admin/getUserList/" + this.attributes['data-id'].value
+            , dataType: 'json'
+            , success: function (result) {
+                const form =  document.forms['editUserForm'];
+                form['id'].value = result.id;
+                form['full_name'].value = result.full_name;
+                form['email'].value = result.email;
+                form['phone_number'].value = result.phone_number;
+                form['description'].value = result.description;
+                form['role_id'].value = result.role_id;
+            }
+        });
+        $('#editUM').modal('show');
+    };
+});
+// Sweet Alert check Role Delete Or Not !
+$(document.getElementsByClassName('remove-role')).each(function () {
+   this.onclick = function () {
+       const href = this.attributes['data-href'].value;
+       swal({
+           title: "آیا مطمئن هستید ؟",
+           text: "اگر این نقش را پاک کنید تمام کاربران با این نقش حذف خواهند شد‌",
+           icon: "warning",
+           buttons: ["خیر", "بله"],
+           dangerMode: true,
+       })
+           .then((willDelete) => {
+               if (willDelete) {
+                   window.location.replace(href);
+               }
+           });
+   };
+});

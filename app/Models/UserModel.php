@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Eloquent;
 
@@ -22,6 +23,8 @@ class UserModel extends Model
     protected $guarded = [
         'id',
         'status',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -51,5 +54,10 @@ class UserModel extends Model
             return ['msg'=>$msg,
                 'status'=>$status];
         }
+    }
+
+    public function setPasswordAttribute($val)
+    {
+        $this->attributes['password'] = Hash::make($val);
     }
 }

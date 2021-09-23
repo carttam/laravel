@@ -15,24 +15,7 @@
 
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">خانه</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">لینک</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        بازشو
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">فعالیت</a></li>
-                        <li><a class="dropdown-item" href="#">بخش دیگر</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">یک لینک دیگه</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">غیرفعال</a>
+                    <a class="nav-link active" aria-current="page" href="{{route('home')}}">خانه</a>
                 </li>
             </ul>
         </div>
