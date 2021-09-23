@@ -67,6 +67,16 @@ class AdminController extends Controller
         return response('<h1>You Do not Have Permission !</h1>', 403);
     }
 
+    public function getRoleList($id)
+    {
+        $login = LoginController::checkLogin();
+        if ($login)
+            if (LoginController::check_user_has_super_permission($login->role->level))
+                return response(json_encode(RoleModel::find($id)), 200, ['Content-Type' => 'application/json']);
+
+        return response('<h1>You Do not Have Permission !</h1>', 403);
+    }
+
     public function editUser(EditUserRequest $request)
     {
         $id = $request->input('id');
@@ -78,6 +88,22 @@ class AdminController extends Controller
             if ($user instanceof UserModel) {
                 $user->update($request);
                 return redirect()->route('admin')->with('success','کاربر با موفقیت بروزرسانی شد .');
+            }
+        }
+        return redirect()->route('admin')->with('failed','خطایی رخ داده است با پشتیبانی تماس بگیرید .');
+    }
+
+    public function editRole(RoleRequest $request)
+    {
+        $id = $request->input('id');
+        if (ctype_digit($id)) {
+            $request = $request->toArray();
+            unset($request['id']);
+
+            $role = RoleModel::find($id);
+            if ($role instanceof RoleModel) {
+                $role->update($request);
+                return redirect()->route('admin')->with('success','نقش با موفقیت بروزرسانی شد .');
             }
         }
         return redirect()->route('admin')->with('failed','خطایی رخ داده است با پشتیبانی تماس بگیرید .');

@@ -137,7 +137,27 @@ $(document.getElementsByClassName('edit-user')).each(function() {
         $('#editUM').modal('show');
     };
 });
+
+// Edit Role Modal
+
+$(document.getElementsByClassName('edit-role')).each(function() {
+    this.onclick = function (){
+        $.ajax({
+            url: "http://localhost/lara/public/admin/getRoleList/" + this.attributes['data-id'].value
+            , dataType: 'json'
+            , success: function (result) {
+                const form =  document.forms['editRoleForm'];
+                form['id'].value = result.id;
+                form['type'].value = result.type;
+                form['level'].value = result.level;
+            }
+        });
+        $('#editRM').modal('show');
+    };
+});
+
 // Sweet Alert check Role Delete Or Not !
+
 $(document.getElementsByClassName('remove-role')).each(function () {
    this.onclick = function () {
        const href = this.attributes['data-href'].value;

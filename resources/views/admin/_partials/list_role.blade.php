@@ -13,7 +13,7 @@
         <?php $counter = 1; ?>
         @foreach($roles as $role)
             <tr>
-                <td><a data-href="{{route('removeRole',['id'=>$role->id])}}" class="text-danger remove-role"><i class="bi bi-x-circle"></i></a></td>
+                <td><a data-href="{{route('removeRole',['id'=>$role->id])}}" class="text-danger remove-role"><i class="bi bi-x-circle"></i></a> <a class="edit-role" data-id="{{$role->id}}"><i class="bi bi-file-text"></i></a></td>
                 <td>{{ $role->level }}</td>
                 <td>{{ $role->type }}</td>
                 <td>{{ $counter }}</td>

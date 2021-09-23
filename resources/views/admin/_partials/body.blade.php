@@ -53,3 +53,5 @@ if (isset($_GET['ft']))
 
 {{--Edit_User_Modal--}}
 @include('admin._partials.edit_user_modal')
+{{--Edit_Role_Modal--}}
+@include('admin._partials.edit_role_modal')

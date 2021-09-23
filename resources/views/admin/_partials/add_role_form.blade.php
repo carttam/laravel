@@ -7,5 +7,5 @@
     <input type="number" class="form-control" id="validationServer01" name="level">
 </div>
 <div class="col-12 col-md-8 col-lg-6 text-center">
-    <input class="btn btn-outline-success mt-5" type="submit" value="افزودن">
+    <input class="btn btn-outline-success mt-5" type="submit" value="انجام بده">
 </div>
