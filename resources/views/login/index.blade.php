@@ -33,6 +33,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
                 @include('_partials.errors')
+                @include('_partials.custom_errors')
 				<form class="login100-form validate-form" method="post" action="{{route('login')}}">
                     @csrf
 					<span class="login100-form-logo">

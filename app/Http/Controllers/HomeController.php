@@ -10,6 +10,7 @@ use App\Models\UserModel;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -22,8 +23,7 @@ class HomeController extends Controller
 
     public function clearSession()
     {
-        session()->forget('email');
-        session()->forget('password');
+        \Auth::logout();
         return redirect()->route('home');
     }
 
@@ -51,7 +51,7 @@ class HomeController extends Controller
         if ($user instanceof UserModel) {
 
             try {
-                $file_path = 'upload/' . $user->secret_key . '/';
+                $file_path = 'upload/'.$user->secret_key . '/';
                 do {
                     $file_name = Str::random(32) . '.' . $request->file('file')->getClientOriginalExtension();
                 } while (Storage::exists($file_path . $file_name));
@@ -64,7 +64,7 @@ class HomeController extends Controller
                 ]);
 
                 $post->create_comment_table();
-                Storage::disk('public')->putFileAs($file_path, $request->file('file'), $file_name);
+                $request->file('file')->storeAs($file_path,$file_name);
                 $msg = 'پست با موفقیت اضافه شد.';
                 $status = 'success';
             } catch (QueryException $ex) {

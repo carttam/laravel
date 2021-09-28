@@ -17,10 +17,6 @@
     <script src="js/site/main.js"></script>
 @endsection
 
-<?php
-$login = \App\Http\Controllers\LoginController::checkLogin();
-?>
-
 @section('body')
 
     <!--Navbar-->

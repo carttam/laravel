@@ -12,12 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('admin.auth')->group(function () {
     /*Get Request*/
     Route::get('/', [\App\Http\Controllers\AdminController::class, 'index'])->name('admin');
     Route::get('/removeUser/{id}', [\App\Http\Controllers\AdminController::class, 'removeUser'])->name('removeUser');
     Route::get('/removeRole/{id}', [\App\Http\Controllers\AdminController::class, 'removeRole'])->name('removeRole');
-    Route::get('/test', [\App\Http\Controllers\AdminController::class, 'test'])->name('test');
     Route::get('/getUserList/{id}', [\App\Http\Controllers\AdminController::class, 'getUserList'])->name('getUserList');
     Route::get('/getRoleList/{id}', [\App\Http\Controllers\AdminController::class, 'getRoleList'])->name('getRoleList');
     /*Post Request*/

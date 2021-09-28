@@ -24,6 +24,7 @@ class CreateUserTable extends Migration
             $table->foreign('role_id')->references('id')->on('role')->onDelete('cascade');
             $table->text('description')->nullable();
             $table->boolean('status')->default('0');
+            $table->rememberToken();
             $table->timestamps();
         });
         \App\Models\UserModel::create([
@@ -31,6 +32,7 @@ class CreateUserTable extends Migration
             'email'=>'admin@mail.com',
             'password' => 'adminadmin',
             'role_id' => '2',
+            'secret_key' => Str::random('16'),
             'phone_number' => '0000000000',
         ]);
     }

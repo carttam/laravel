@@ -12,7 +12,7 @@ class RoleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         $login = LoginController::checkLogin();
         if ($login)

@@ -9,11 +9,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 {{--Check Login Part--}}
-                @if($login) {{--Lged In--}}
+                @if(Auth::check()) {{--Lged In--}}
                 <li class="nav-item me-3 text-warning mt-1">
-                    {{$login->full_name}}
+                    {{Auth::user()->full_name}}
                 </li>
-                @if(\App\Http\Controllers\LoginController::check_user_has_super_permission($login->role->level))
+                @if(\App\Http\Controllers\LoginController::check_user_has_super_permission(Auth::user()->role->level))
                     <li class="nav-item me-3 mt-2 mt-lg-0">
                         <a class="btn btn-outline-info" href="{{route('admin')}}"> <i class="bi bi-box-arrow-right"></i> پنل ادمین </a>
                     </li>

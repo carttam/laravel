@@ -4,14 +4,14 @@
         @foreach($posts as $post)
             <div class="col-12 col-lg-10 border d-flex justify-content-center mt-5">
                 <div class="card">
-                    <img class="card-img-top" src="../storage/app/public/upload/{{$post->user->secret_key.'/'.$post->file_name}}" alt="Card image cap">
+                    <img class="card-img-top" src="../storage/app/upload/{{$post->user->secret_key.'/'.$post->file_name}}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{$post->user->full_name}}</h5>
                         <p class="card-text">{{$post->description}}</p>
                     </div>
                     <div class="card-body">
                         <a class="card-link comments" data-id="{{$post->id}}">نظرات</a>
-                        @if($login)
+                        @if(Auth::check())
                             <a class="card-link add-comment" data-id="{{$post->id}}">نظر بده</a>
                         @endif
                     </div>

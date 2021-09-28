@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EditUserRequest extends FormRequest
@@ -11,9 +12,12 @@ class EditUserRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        $login = LoginController::checkLogin();
+        if ($login)
+            return (bool)LoginController::check_user_has_super_permission($login->role->level);
+        return false;
     }
 
     /**

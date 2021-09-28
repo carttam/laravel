@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\UserModel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use PHPUnit\Exception;
 
@@ -22,18 +23,6 @@ class LoginController extends Controller
         return view('login.signup');
     }
 
-    public static function checkLogin()
-    {
-        $email= session('email');
-        $password= session('password');
-        if ($email && $password) {
-            $usr = UserModel::where('email','=',$email)->where('password','=',$password)->first();
-            if ($usr instanceof UserModel)
-                return $usr;
-        }
-        return false;
-    }
-
     public static function check_user_has_super_permission($lvl = 0): bool
     {
         if ($lvl > 199)
@@ -44,10 +33,17 @@ class LoginController extends Controller
 
     public function logI(LoginRequest $request)
     {
-        session(['email' => $request->input('mail'),
-            'password' => $request->input('pw')
-        ]);
-        return redirect()->route('home');
+//        session(['email' => $request->input('mail'),
+//            'password' => md5($request->input('pw'))
+//        ]);
+        if (\Auth::attempt([
+            'email'=>$request->input('mail'),
+            'password'=>md5($request->input('pw'))
+            ],false)){
+            return redirect()->route('home');
+        }
+        return redirect()->route('login')->with('failed','نام کاربری یا پسورد اشتباه است .');
+
     }
 
     public function signU(HomeUserRequest $request)

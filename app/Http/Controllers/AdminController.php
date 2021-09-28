@@ -18,38 +18,19 @@ use Illuminate\View\View;
 
 class AdminController extends Controller
 {
-    public function test()
-    {
-    }
-
     public function index()
     {
-        $login = LoginController::checkLogin();
-        if ($login)
-            if (LoginController::check_user_has_super_permission($login->role->level))
-                return view('admin.index', ['users' => UserModel::all(), 'roles' => RoleModel::all()->sortByDesc('level')]);
-
-        return response('<h1>You Do not Have Permission !</h1>', 403);
+        return view('admin.index', ['users' => UserModel::all(), 'roles' => RoleModel::all()->sortByDesc('level')]);
     }
 
     public function removeUser($id)
     {
-        $login = LoginController::checkLogin();
-        if ($login instanceof UserModel && ctype_digit($id))
-            if (LoginController::check_user_has_super_permission($login->role->level))
-                if (UserModel::find($id)->delete())
-                    return redirect()->route('admin')->with('success', 'کاربر با موفقیت حذف شد .');
-        return response('Some Problem Happened ...', 405);
+        return redirect()->route('admin')->with('success', 'کاربر با موفقیت حذف شد .');
     }
 
     public function removeRole($id)
     {
-        $login = LoginController::checkLogin();
-        if ($login instanceof UserModel && ctype_digit($id))
-            if (LoginController::check_user_has_super_permission($login->role->level))
-                if (RoleModel::find($id)->delete())
                     return redirect()->route('admin')->with('success', 'نقش با موفقیت حذف شد .');
-        return response('Some Problem Happened ...', 405);
     }
 
     /*
@@ -59,22 +40,12 @@ class AdminController extends Controller
 
     public function getUserList($id)
     {
-        $login = LoginController::checkLogin();
-        if ($login)
-            if (LoginController::check_user_has_super_permission($login->role->level))
                 return response(json_encode(UserModel::find($id)), 200, ['Content-Type' => 'application/json']);
-
-        return response('<h1>You Do not Have Permission !</h1>', 403);
     }
 
     public function getRoleList($id)
     {
-        $login = LoginController::checkLogin();
-        if ($login)
-            if (LoginController::check_user_has_super_permission($login->role->level))
                 return response(json_encode(RoleModel::find($id)), 200, ['Content-Type' => 'application/json']);
-
-        return response('<h1>You Do not Have Permission !</h1>', 403);
     }
 
     public function editUser(EditUserRequest $request)
@@ -87,10 +58,10 @@ class AdminController extends Controller
             $user = UserModel::find($id);
             if ($user instanceof UserModel) {
                 $user->update($request);
-                return redirect()->route('admin')->with('success','کاربر با موفقیت بروزرسانی شد .');
+                return redirect()->route('admin')->with('success', 'کاربر با موفقیت بروزرسانی شد .');
             }
         }
-        return redirect()->route('admin')->with('failed','خطایی رخ داده است با پشتیبانی تماس بگیرید .');
+        return redirect()->route('admin')->with('failed', 'خطایی رخ داده است با پشتیبانی تماس بگیرید .');
     }
 
     public function editRole(RoleRequest $request)
@@ -103,10 +74,10 @@ class AdminController extends Controller
             $role = RoleModel::find($id);
             if ($role instanceof RoleModel) {
                 $role->update($request);
-                return redirect()->route('admin')->with('success','نقش با موفقیت بروزرسانی شد .');
+                return redirect()->route('admin')->with('success', 'نقش با موفقیت بروزرسانی شد .');
             }
         }
-        return redirect()->route('admin')->with('failed','خطایی رخ داده است با پشتیبانی تماس بگیرید .');
+        return redirect()->route('admin')->with('failed', 'خطایی رخ داده است با پشتیبانی تماس بگیرید .');
     }
 
     public function insertUser(UserRequest $request)
