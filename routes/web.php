@@ -31,6 +31,7 @@ Route::prefix('home')->group(function () {
     Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/ClearSession', [\App\Http\Controllers\HomeController::class, 'clearSession'])->name('clearSession');
     Route::get('/getComments/{post_id}', [\App\Http\Controllers\HomeController::class, 'getComments'])->name('getComments');
+    Route::get('/getImage/{post_id}', [\App\Http\Controllers\HomeController::class, 'displayImage'])->name('getImage');
     /*Post Request*/
     Route::post('/addPost', [\App\Http\Controllers\HomeController::class, 'insertPost'])->name('addPost');
     Route::post('/addComment', [\App\Http\Controllers\HomeController::class, 'insertComment'])->name('addComment');

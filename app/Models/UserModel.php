@@ -11,13 +11,14 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Eloquent;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * @mixin Eloquent
  * */
 class UserModel extends Model implements Authenticatable
 {
-    use HasFactory;
+    use HasFactory,HasApiTokens;
 
     protected $table = 'user';
     protected $guarded = [

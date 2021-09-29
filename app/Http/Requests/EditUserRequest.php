@@ -14,10 +14,7 @@ class EditUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $login = LoginController::checkLogin();
-        if ($login)
-            return (bool)LoginController::check_user_has_super_permission($login->role->level);
-        return false;
+        return true;
     }
 
     /**

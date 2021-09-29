@@ -30,7 +30,7 @@ class AdminController extends Controller
 
     public function removeRole($id)
     {
-                    return redirect()->route('admin')->with('success', 'نقش با موفقیت حذف شد .');
+        return redirect()->route('admin')->with('success', 'نقش با موفقیت حذف شد .');
     }
 
     /*
@@ -40,12 +40,12 @@ class AdminController extends Controller
 
     public function getUserList($id)
     {
-                return response(json_encode(UserModel::find($id)), 200, ['Content-Type' => 'application/json']);
+        return response(json_encode(UserModel::find($id)), 200, ['Content-Type' => 'application/json']);
     }
 
     public function getRoleList($id)
     {
-                return response(json_encode(RoleModel::find($id)), 200, ['Content-Type' => 'application/json']);
+        return response(json_encode(RoleModel::find($id)), 200, ['Content-Type' => 'application/json']);
     }
 
     public function editUser(EditUserRequest $request)
@@ -54,7 +54,8 @@ class AdminController extends Controller
         if (ctype_digit($id)) {
             $request = $request->toArray();
             unset($request['id']);
-
+            if ($request['password'] === null)
+                unset($request['password']);
             $user = UserModel::find($id);
             if ($user instanceof UserModel) {
                 $user->update($request);

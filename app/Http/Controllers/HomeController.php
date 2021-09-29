@@ -27,18 +27,41 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    public function displayImage($postID)
+
+    {
+        if (ctype_digit($postID)) {
+            $post = PostModel::find($postID);
+            $path = storage_path('app/upload/').$post->user->secret_key.'/'.$post->file_name;
+            if (!\File::exists($path)) {
+
+                abort(404);
+
+            }
+            $file = \File::get($path);
+            $type = \File::mimeType($path);
+            $response = \Response::make($file, 200);
+            $response->header("Content-Type", $type);
+
+            return $response;
+
+        }
+        return null;
+    }
+
     public function getComments($post_id)
     {
         $result = array();
         $comments = PostModel::find($post_id);
         if ($comments instanceof PostModel) {
-
             foreach ($comments->comments() as $comment) {
                 $result[] = ['id' => $comment->id,
                     'comment' => $comment->comment,
                     'user_full_name' => $comment->user->full_name];
             }
-
             return response(json_encode($result, JSON_UNESCAPED_UNICODE), 200);
         }
     }
@@ -47,11 +70,10 @@ class HomeController extends Controller
     {
         $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید.';
         $status = 'failed';
-        $user = LoginController::checkLogin();
-        if ($user instanceof UserModel) {
-
+        if (\Auth::check()) {
+            $user = \Auth::user();
             try {
-                $file_path = 'upload/'.$user->secret_key . '/';
+                $file_path = 'upload/' . $user->secret_key . '/';
                 do {
                     $file_name = Str::random(32) . '.' . $request->file('file')->getClientOriginalExtension();
                 } while (Storage::exists($file_path . $file_name));
@@ -64,7 +86,7 @@ class HomeController extends Controller
                 ]);
 
                 $post->create_comment_table();
-                $request->file('file')->storeAs($file_path,$file_name);
+                $request->file('file')->storeAs($file_path, $file_name);
                 $msg = 'پست با موفقیت اضافه شد.';
                 $status = 'success';
             } catch (QueryException $ex) {
@@ -84,8 +106,8 @@ class HomeController extends Controller
         $msg = 'خطایی رخ داده است با پشتیبانی تماس بگیرید .';
         try {
             $cm = (new CommentModel())->setTable('comment_' . $request->input('id'));
-            $usr = LoginController::checkLogin();
-            if ($usr instanceof UserModel) {
+            if (\Auth::check()) {
+                $usr = \Auth::user();
                 $cm->user_id = $usr->id;
                 $cm->comment = $request->input('comment');
                 $cm->save();
