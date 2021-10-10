@@ -14,4 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/',[\App\Http\Controllers\ApiController::class,'index'])->name('api.index');
+Route::post('',[\App\Http\Controllers\ApiController::class,'index'])->name('api.index');
+Route::post('/isLogin',[\App\Http\Controllers\ApiController::class,'checkL'])->middleware('auth:api')->name('api.isLogin');
+Route::post('/logout',[\App\Http\Controllers\ApiController::class,'logout'])->middleware('auth:api')->name('api.logout');
+Route::post('/addComment',[\App\Http\Controllers\ApiController::class,'addComment'])->middleware('auth:api')->name('api.addComment');
+Route::post('/login',[\App\Http\Controllers\ApiController::class,'login'])->name('api.login');
+Route::post('/signUp',[\App\Http\Controllers\ApiController::class,'signUp'])->name('api.signUp');
+

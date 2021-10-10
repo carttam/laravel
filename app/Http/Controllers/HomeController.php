@@ -62,7 +62,7 @@ class HomeController extends Controller
                     'comment' => $comment->comment,
                     'user_full_name' => $comment->user->full_name];
             }
-            return response(json_encode($result, JSON_UNESCAPED_UNICODE), 200);
+            return response(json_encode($result, JSON_UNESCAPED_UNICODE), 200,['Access-Control-Allow-Origin'=>'*',]);
         }
     }
 
