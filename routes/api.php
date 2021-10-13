@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('',[\App\Http\Controllers\ApiController::class,'index'])->name('api.index');
-Route::post('/isLogin',[\App\Http\Controllers\ApiController::class,'checkL'])->middleware('auth:api')->name('api.isLogin');
-Route::post('/logout',[\App\Http\Controllers\ApiController::class,'logout'])->middleware('auth:api')->name('api.logout');
-Route::post('/addComment',[\App\Http\Controllers\ApiController::class,'addComment'])->middleware('auth:api')->name('api.addComment');
-Route::post('/login',[\App\Http\Controllers\ApiController::class,'login'])->name('api.login');
-Route::post('/signUp',[\App\Http\Controllers\ApiController::class,'signUp'])->name('api.signUp');
-
+Route::prefix('/')->group(function () {
+    Route::post('', [ApiController::class, 'index']);
+    Route::post('/isLogin', [ApiController::class, 'checkL'])->middleware('auth:api');
+    Route::post('/logout', [ApiController::class, 'logout'])->middleware('auth:api');
+    Route::post('/addComment', [ApiController::class, 'addComment'])->middleware('auth:api');
+    Route::post('/addPost', [ApiController::class, 'addPost'])->middleware('auth:api');
+    Route::post('/login', [ApiController::class, 'login']);
+    Route::post('/signUp', [ApiController::class, 'signUp']);
+});

@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\HomeUserRequest;
-use App\Http\Resources\PostResource;
+use App\Http\Requests\PostRequest;
 use App\Models\CommentModel;
 use App\Models\PostModel;
 use App\Models\UserModel;
+use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use PHPUnit\Exception;
 
@@ -23,14 +25,14 @@ class ApiController extends Controller
 
     public function login(Request $request)
     {
-        if (\Auth::attempt([
+        if (Auth::attempt([
             'email' => $request->json('email'),
             'password' => md5($request->json('password'))
         ], false))
          return json_encode([
                 'status' => 'success',
                 'message' => trans('api.user.login.success'),
-                'token' => \Auth::user()->createToken('Token Name')->accessToken
+                'token' => Auth::user()->createToken('Token Name')->accessToken
             ], JSON_UNESCAPED_UNICODE);
         return json_encode([
             'status' => 'failed',
@@ -40,7 +42,7 @@ class ApiController extends Controller
 
     public function logout()
     {
-        \Auth::user()->token()->revoke();
+        Auth::user()->token()->revoke();
         return response()->json(["status"=>"success"],200);
     }
 
@@ -81,7 +83,7 @@ class ApiController extends Controller
         try {
             $cm = (new CommentModel())->setTable('comment_' . $request->json('post_id'));
 
-            $usr = \Auth::user();
+            $usr = Auth::user();
             $cm->user_id = $usr->id;
             $cm->comment = $request->json('comment');
             $cm->save();
@@ -102,8 +104,42 @@ class ApiController extends Controller
         }
     }
 
+    public function addPost(Request $request)
+    {
+        $user = Auth::user();
+        try {
+            $file_path = 'upload/' . $user->secret_key . '/';
+            $base64_image = base64_decode($request->json('file'));
+            $file_mimeType = explode('/',finfo_buffer(finfo_open(),$base64_image,FILEINFO_MIME_TYPE))[1];
+            do {
+                $file_name = Str::random(32) . '.' . $file_mimeType;
+            } while (Storage::exists($file_path . $file_name));
+
+
+            // add post to mysql
+            $post = PostModel::create([
+                'description' => $request->json('description'),
+                'file_type' => $file_mimeType,
+                'file_name' => $file_name,
+                'user_id' => $user->id,
+            ]);
+
+            // Convert base64 image to image
+            $f = fopen(storage_path('app/'.$file_path.$file_name),'w+');
+            fwrite($f,$base64_image);
+            fclose($f);
+
+            $post->create_comment_table();
+            $msg = 'پست با موفقیت اضافه شد .';
+        } catch (QueryException | \Exception $ex) {
+            $msg = 'خطایی رخ داده است.';
+        } finally {
+            return response()->json(['message'=>$msg], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
     public function checkL()
     {
-        return response(json_encode(\Auth::user()),200);
+        return response(json_encode(Auth::user()),200);
     }
 }
