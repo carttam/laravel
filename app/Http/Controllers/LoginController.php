@@ -38,7 +38,7 @@ class LoginController extends Controller
 //        ]);
         if (\Auth::attempt([
             'email'=>$request->input('mail'),
-            'password'=>md5($request->input('pw'))
+            'password'=>$request->input('pw')
             ],false)){
             return redirect()->route('home');
         }

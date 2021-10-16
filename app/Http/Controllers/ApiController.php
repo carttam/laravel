@@ -27,7 +27,7 @@ class ApiController extends Controller
     {
         if (Auth::attempt([
             'email' => $request->json('email'),
-            'password' => md5($request->json('password'))
+            'password' => $request->json('password')
         ], false))
          return json_encode([
                 'status' => 'success',

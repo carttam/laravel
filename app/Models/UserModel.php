@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Requests\UserRequest;
+use Hash;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -65,7 +66,7 @@ class UserModel extends Model implements Authenticatable
 
     public function setPasswordAttribute($val)
     {
-        $this->attributes['password'] = md5($val);
+        $this->attributes['password'] = Hash::make($val);
     }
 
     /**
@@ -95,7 +96,7 @@ class UserModel extends Model implements Authenticatable
      */
     public function getAuthPassword()
     {
-        return bcrypt($this->password);
+        return $this->password;
     }
 
     /**
