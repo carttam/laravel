@@ -6,13 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-fileinfo": "*",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/passport": "^10.1",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5",
-        "ext-fileinfo": "*"
+        "laravel/tinker": "^2.5"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.10",

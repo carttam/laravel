@@ -2,7 +2,7 @@
 $(document.getElementsByClassName('comments')).each(function () {
     this.onclick = function () {
         $.ajax({
-            url: "http://localhost/lara/public/home/getComments/" + this.attributes['data-id'].value
+            url: "http://localhost:8000/home/getComments/" + this.attributes['data-id'].value
             , dataType: 'json'
             , success: function (result) {
                 const content = document.getElementById('modal-content');

@@ -122,7 +122,7 @@ $(document).ready(function () {
 $(document.getElementsByClassName('edit-user')).each(function() {
     this.onclick = function (){
         $.ajax({
-            url: "http://localhost/lara/public/admin/getUserList/" + this.attributes['data-id'].value
+            url: "http://localhost:8000/admin/getUserList/" + this.attributes['data-id'].value
             , dataType: 'json'
             , success: function (result) {
                 const form =  document.forms['editUserForm'];
@@ -143,7 +143,7 @@ $(document.getElementsByClassName('edit-user')).each(function() {
 $(document.getElementsByClassName('edit-role')).each(function() {
     this.onclick = function (){
         $.ajax({
-            url: "http://localhost/lara/public/admin/getRoleList/" + this.attributes['data-id'].value
+            url: "http://localhost:8000/admin/getRoleList/" + this.attributes['data-id'].value
             , dataType: 'json'
             , success: function (result) {
                 const form =  document.forms['editRoleForm'];
